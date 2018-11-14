@@ -2,7 +2,6 @@
   "task_name":"hello",
   "description":"",
   "version":"",
-  "workflow_failure_mode":"NoNewCalls",
   "maxRetries":0,
   "continueOnReturnCode":"",
   "failOnStderr":false,

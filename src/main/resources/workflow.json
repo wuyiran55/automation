@@ -6,6 +6,7 @@
   //applyType ： [default, override]
   //  default:  task中未设置时使用该值，此处也未设置时使用cromwell的默认值（0）
   //  override: 强制应用于所有task， 忽略task内的设置
+  "workflow_failure_mode":"NoNewCalls",
   "maxRetries":{
     "value":0,
     "applyType":"default"
