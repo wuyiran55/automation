@@ -2,6 +2,7 @@
   "task_name":"hello",
   "description":"",
   "version":"",
+  "workflow_failure_mode":"NoNewCalls",
   "maxRetries":0,
   "continueOnReturnCode":"",
   "failOnStderr":false,
@@ -10,24 +11,23 @@
     "mem":{
       "type":"Int",
       "defaultValue":2,
-      "optional":true,
+      "required":false,  // required为false的才允许设置默认值
       "description":"memory(G)"
     },
     "cpu":{
       "type":"Int",
       "defaultValue":2,
-      "optional":true,
+      "required":false,
       "description":"thread number"
     },
     "param1":{
       "type":"String",
-      "defaultValue":"",
-      "optional":false,
+      "required":false,
       "description":"Set it when call this task in workflow"
     },
     "param2":{
       "type":"String",
-      "optional":false,
+      "required":true,
       "description":"Set it when call this task in workflow"
     }
   },
