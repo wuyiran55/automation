@@ -1,0 +1,42 @@
+{
+  "task_name":"hello",
+  "description":"",
+  "version":"",
+  "maxRetries":0,
+  "continueOnReturnCode":"",
+  "failOnStderr":false,
+  "backends":"SGE",
+  "parameter":{
+    "mem":{
+      "type":"Int",
+      "defaultValue":2,
+      "optional":true,
+      "description":"memory(G)"
+    },
+    "cpu":{
+      "type":"Int",
+      "defaultValue":2,
+      "optional":true,
+      "description":"thread number"
+    },
+    "param1":{
+      "type":"String",
+      "defaultValue":"",
+      "optional":false,
+      "description":"Set it when call this task in workflow"
+    },
+    "param2":{
+      "type":"String",
+      "optional":false,
+      "description":"Set it when call this task in workflow"
+    }
+  },
+  "command":"",
+  "output":{
+    "out1":{
+      "type":"String",
+      "expression":"",
+      "description":""
+    }
+  }
+}
