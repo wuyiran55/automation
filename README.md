@@ -2,6 +2,10 @@
 用于自动生成WDL
 
 ---
+### workflow示意图
+![workflow示意图](https://github.com/BGI-flexlab/automation/blob/master/workflow_diagram.png)
+
+---
 #### 具体示例正在准备中
 
 ---
