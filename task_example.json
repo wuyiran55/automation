@@ -19,6 +19,12 @@
       "required":false,
       "description":"thread number"
     },
+    "queue":{
+      "type":"String",
+      "defaultValue":"",
+      "required":false,
+      "description":"thread number"
+    },
     "param1":{
       "type":"String",
       "required":false,
