@@ -1,5 +1,5 @@
 {
-  "task_name":"hello",
+  "taskName":"hello",
   "description":"",
   "version":"",
   "maxRetries":0,
