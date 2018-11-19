@@ -11,19 +11,13 @@
     "value":0,
     "applyType":"default"
   },
-  "continueOnReturnCode":{
-    "value":"0",
-    "applyType":"override"
-  },
-  "failOnStderr":{
-    "value":false,
-    "applyType":"default"
-  },
-  "backends":{
-    "value":"SGE",
-    "applyType":"default"
-  },
   "parameter":{
+    "queue":{
+      "type":"String",
+      "defaultValue":"",
+      "required":false,
+      "description":"thread number"
+    },
     "param1":{
       "type":"String",
       "defaultValue":"",
@@ -41,15 +35,15 @@
           "value":"param1",
           "from":"workflow" // form: [workflow, task, const]
         }
-      },
-      "scatterBy":"task1.out1"  //用于依赖于task1.out1的下一步任务的并行
+      }
     },
     "task2":{
       "dependency":["task1"],
       "source":"",
       "parameterLink":{
         "param1":{
-          "value":"task1.scatterBy",  //不再固定task的inputs、result参数，来自依赖任务的结果通过传workflow参数的形式传入
+          "is_scatter":true, //task1.out1是数组，将打散为单个值传入
+          "value":"task1.out1",  //不再固定task的inputs、result参数，来自依赖任务的结果通过传workflow参数的形式传入
           "from":"task"
         },
         "mem":{
