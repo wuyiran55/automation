@@ -48,6 +48,9 @@ public class TaskWdlBuilder {
 
     public String wdlWriter(String outFile){
         try{
+            if (content == null || content.equals("")){
+                getWdlString();
+            }
             BufferedWriter outWriter = new BufferedWriter(new FileWriter(new File(outFile))) ;
             outWriter.write(content);
             outWriter.close();
