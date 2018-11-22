@@ -1,0 +1,75 @@
+
+{
+  "taskName":"HaplotypeCaller",
+  "description":"",
+  "version":"",
+  "maxRetries":0,
+  "continueOnReturnCode":"",
+  "failOnStderr":false,
+  "backends":"SGE",
+  "parameter":{
+    "mem":{
+      "type":"Int",
+      "defaultValue":8,
+      "required":false,  // required为false的才允许设置默认值
+      "description":"memory(G)"
+    },
+    "cpu":{
+      "type":"Int",
+      "defaultValue":1,
+      "required":false,
+      "description":"thread number"
+    },
+    "queue":{
+      "type":"String",
+      "defaultValue":"",
+      "required":false,
+      "description":"thread number"
+    },
+    "gatk":{
+      "type":"String",
+      "required":true,
+      "description":"Set it when call this task in workflow"
+    },
+    "input_bam":{
+      "type":"String",
+      "required":true,
+      "description":"Set it when call this task in workflow"
+    },
+    "ref_fasta":{
+      "type":"String",
+      "required":true,
+      "description":"Set it when call this task in workflow"
+    },
+    "interval_list":{
+      "type":"String",
+      "required":true,
+      "description":"Set it when call this task in workflow"
+    },
+    "gvcf_basename":{
+      "type":"String",
+      "defaultValue":"part",
+      "required":false,
+      "description":"Set it when call this task in workflow"
+    },
+      "interval_padding": {
+        "type":"String",
+        "required":true,
+        "description":"Set it when call this task in workflow"
+      }
+  },
+  "command":"\${gatk} --java-options \"-Xms8g -XX:GCHeapFreeLimit=10 -XX:ParallelGCThreads=2\" HaplotypeCaller -R ${ref_fasta} -O ${gvcf_basename}.g.vcf.gz -I ${input_bam} -L ${interval_list} ${\"-ip \" + interval_padding} -ERC GVCF",
+
+  "output":{
+    "output_gvcf":{
+      "type":"String",
+      "expression":"${gvcf_basename}.g.vcf.gz",
+      "description":""
+    },
+    "output_gvcf_index":{
+    "type":"String",
+    "expression":"${gvcf_basename}.g.vcf.gz.tbi",
+    "description":""
+    }
+  }
+}
