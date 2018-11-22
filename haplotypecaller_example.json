@@ -50,7 +50,7 @@
       "type":"String",
       "defaultValue":"part",
       "required":false,
-      "description":"Set it when call this task in workflow"
+      "description":""
     },
       "interval_padding": {
         "type":"String",
