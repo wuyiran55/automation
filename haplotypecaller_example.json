@@ -11,7 +11,7 @@
     "mem":{
       "type":"Int",
       "defaultValue":8,
-      "required":false,  // required为false的才允许设置默认值
+      "required":false,
       "description":"memory(G)"
     },
     "cpu":{
@@ -58,7 +58,7 @@
         "description":"Set it when call this task in workflow"
       }
   },
-  "command":"\${gatk} --java-options \"-Xms8g -XX:GCHeapFreeLimit=10 -XX:ParallelGCThreads=2\" HaplotypeCaller -R ${ref_fasta} -O ${gvcf_basename}.g.vcf.gz -I ${input_bam} -L ${interval_list} ${\"-ip \" + interval_padding} -ERC GVCF",
+  "command":"${gatk} --java-options \"-Xms8g -XX:GCHeapFreeLimit=10 -XX:ParallelGCThreads=2\" HaplotypeCaller -R ${ref_fasta} -O ${gvcf_basename}.g.vcf.gz -I ${input_bam} -L ${interval_list} ${\"-ip \" + interval_padding} -ERC GVCF",
 
   "output":{
     "output_gvcf":{
