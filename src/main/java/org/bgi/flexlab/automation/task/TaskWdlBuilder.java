@@ -2,6 +2,7 @@ package org.bgi.flexlab.automation.task;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.bgi.flexlab.automation.json.WdlOutput;
 import org.bgi.flexlab.automation.json.WdlParameter;
 import org.bgi.flexlab.automation.json.WdlTask;
 
@@ -26,23 +27,30 @@ public class TaskWdlBuilder {
         String parameter = "task " + task.getTaskName() + " {\n" ;
         HashMap<String, WdlParameter> par = task.getParameter() ;
         for(String key : par.keySet()){
-            if (par.get(key).isOptional()) {
-                parameter = parameter + " " + par.get(key).getType() + "? " + key ;
-            }else{
-                parameter = parameter + " " + par.get(key).getType() + " " + key ;
-            }
-            if (par.get(key).getDefaultValue()!=null && !par.get(key).getDefaultValue().equals("")){ //
-                parameter = parameter + " = "+ par.get(key).getDefaultValue()+"\n" ;
+            parameter = parameter + " " + par.get(key).getType() ;
+            if (par.get(key).isRequired()) {  //required par
+                parameter = parameter + " " + key + "\n";
             }else {
-                parameter = parameter + "\n" ;
+                if (par.get(key).getDefaultValue() == null){ // optional && null value
+                    parameter = parameter + "? " + key + "\n";
+                }else { // optional &&  "" || non-null value
+                    parameter = parameter +" " + key + " = " + par.get(key).getDefaultValue()+"\n" ;
+                }
             }
+
+
         }
 
 
-        String command = "\tcommand\t{ \n" + "\t\t"+task.getCommand()+"\n";
-        String runTime = "\truntime\t{ \n" + "\t\tbackends:\""+task.getBackends()+"\"\n"+"\t\tsge_queue:\"";
-        String output = "" ;
-        content = message +  parameter + command + runTime + output ;
+        String command = "\tcommand\t{ \n" + "\t\t"+task.getCommand()+"\n"+"\t}\n";
+        String runTime = "\truntime\t{ \n" + "\t\tbackends:\"" + task.getBackends()+ "\"\n" + "\t\tsge_queue:queue\"\nmemmory:\"${mem} GB\"\ncpu: cpu\n\t}";
+        String output = "\toutput\t{ \n" ;
+        HashMap<String, WdlOutput> out = task.getOutput() ;
+        for (String key :out.keySet()){ // required  Expre
+            output = output + "\t\t"+out.get(key).getType() + " "+ key +" = "+out.get(key).getExpression() + "\n" ;
+        }
+        output = output + "\t}\n" ;
+        content = message +  parameter + command + runTime + output + "}\n";
         return content;
     }
 
