@@ -43,9 +43,22 @@ public class TaskWdlBuilder {
                 taskContent.append(parameter.get(key).getType()).append("?").append(SPACE_SIZE).append(key);
                 taskContent.append('\n');
             } else {
+                String wdlDataType = parameter.get(key).getType();
+
                 taskContent.append(INDENT_SIZE);
-                taskContent.append(parameter.get(key).getType()).append(SPACE_SIZE).append(key);
-                taskContent.append(SPACE_SIZE).append("=").append(SPACE_SIZE).append(parameter.get(key).getDefaultValue());
+                taskContent.append(wdlDataType).append(SPACE_SIZE).append(key);
+                taskContent.append(SPACE_SIZE).append("=").append(SPACE_SIZE);
+
+                Object defaultValue = parameter.get(key).getDefaultValue();
+                if(wdlDataType.startsWith("Int")){
+                    taskContent.append(Integer.parseInt(defaultValue.toString()));
+                }else if(wdlDataType.startsWith("Float"))
+                    taskContent.append(Float.parseFloat(defaultValue.toString()));
+                else if(wdlDataType.startsWith("Boolean"))
+                    taskContent.append(Boolean.parseBoolean(defaultValue.toString()));
+                else
+                    taskContent.append(String.valueOf(defaultValue));
+
                 taskContent.append('\n');
             }
         }
